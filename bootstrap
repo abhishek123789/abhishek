@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+   <button type="button" class="navbar-toggle"
+	data-toggle="collapse"
+	data-target=".navbar-collapse">
+	<span class="sr-only">Data toggle</span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+   </button>
+   <a class="navbar-brand" href="#">First Site</a>
+   <div class="navbar-collapse collapse">
+	<ul class="nav navbar-nav navbar-right">
+		<li class="active"><a href="#">Home</a></li>
+		<li><a href="#">About</a></li>
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle"
+			data-toggle="dropdown">Learn
+			<ul class="dropdown-menu">
+				<li class="dropdown-header">Topics</li>
+				<li><a href="#">Maths</a></li>
+				<li><a href="#">Maths</a></li>
+				<li><a href="#">Maths</a></li>
+			</ul>
+		</li>
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle"
+			data-toggle="dropdown">test
+			<ul class="dropdown-menu">
+				<li class="dropdown-header">Topics</li>
+				<li><a href="#">Maths</a></li>
+				<li><a href="#">Maths</a></li>
+				<li><a href="#">Maths</a></li>
+			</ul>
+		</li>
+	</ul>
+	
+   </div>
+  </div>
+</nav>
+
+<div class="container">
+	<div class="jumbotron text-center">
+		<h3 class="text-center">My First Website</h3>	
+		<p> My First Website  My First Website  My First Website  My First Website  My First Website  My First Website </p>
+		<p> My First Website  My First Website  My First Website  My First Website  My First Website  My First Website </p>
+		<button type="button" class="btn btn-primary">Primary</button>
+		<button type="button" class="btn btn-success">Primary</button>
+	</div>
+	<div class="row">
+		<div class="col-sm-4">
+			<p> My First Website  My First Website  My First Website  My First Website  My First Website  My First Website </p>
+			<button type="button" class="btn btn-primary">Primary</button>
+		</div> 
+		<div class="col-sm-4">
+			<p> My First Website  My First Website  My First Website  My First Website  My First Website  My First Website </p>
+			<button type="button" class="btn btn-primary">Primary</button>
+		</div> 
+		<div class="col-sm-4">
+			<p> My First Website  My First Website  My First Website  My First Website  My First Website  My First Website </p>
+			<button type="button" class="btn btn-primary">Primary</button>	
+		</div> 
+	</div>
+</div>
+
+
+<div class="navbar navbar-inverse navbar-fixed-bottom">
+	<div class="container">
+		
+			<p class="text-center" style="color:white;">Copyright 2017</p>
+		
+	</div>
+</div>  
+
+
+</body>
+</html>
