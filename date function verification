@@ -1,0 +1,39 @@
+validateDate(date,onlyAfterDate:boolean,onlyBeforeDate:boolean):any {
+			let validDate = true;
+			let errDateArr = new Array();
+			let rtnArr = new Array();
+			var currDate = new Date();
+			var condate = new Date(date);
+			//console.log(currDate);
+			//console.log(condate);
+			let day = condate.getDate().toString();
+			let mon = (1+condate.getMonth()).toString();
+			let year = condate.getFullYear().toString();
+			let strDate = mon + "/"+ day+"/" +year ;
+			let rex = /^\d{1,2}\/\d{1,2}\/\d{4}$/ ;
+			let val=rex.test(strDate);
+			if(val) {
+				if(onlyAfterDate){
+				   	if ( (condate.getDate() == currDate.getDate())&&(condate.getMonth() == currDate.getMonth())&&(condate.getFullYear() == currDate.getFullYear()) ) {}
+					else if ( condate.getTime()<currDate.getTime()  ) {
+						validDate = false;
+						errDateArr.push({ errdatebefore:true });
+					}
+				} 
+				if(onlyBeforeDate){
+					if ( condate.getTime()>currDate.getTime() ) {
+						validDate = false;
+						errDateArr.push({ errdateAfter:true });
+					}
+				}
+			} else {
+				validDate = false;
+				errDateArr.push({ errDateStr : true })
+			}
+
+			rtnArr.push({
+				valid:validDate,
+				errDate:errDateArr
+			})	
+			return rtnArr;
+	}
