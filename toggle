@@ -1,0 +1,41 @@
+remv :boolean =false;
+	remvalue(this.accend):any
+	{
+		this.remv=this.accend;	
+	}
+	
+	
+	sortdata(colName):any {
+	
+		if(colName=='Title') {	
+			if(!this.remv) {
+				for(let i=0;i<this.dataItems.length;i++) {
+					for(let j=0;j<this.dataItems.length-i-1;j++) {
+						//console.log( this.dataItems[i].colName);
+						if(this.dataItems[j][colName].toLowerCase() > this.dataItems[j+1][colName].toLowerCase() ) {
+							let temp=this.dataItems[j];
+							this.dataItems[j]=this.dataItems[j+1];
+							this.dataItems[j+1]=temp;
+						}
+					}
+					
+				}
+				this.accend = true;	
+				this.remvalue(this.accend);
+			}
+			else {
+				//console.log(this.remv);
+				for(let i=0;i<this.dataItems.length;i++) {
+					for(let j=0;j<this.dataItems.length-i-1;j++) {
+						//console.log( this.dataItems[i].Title );
+						if(this.dataItems[j][colName].toLowerCase()<this.dataItems[j+1][colName].toLowerCase()) {
+							let temp=this.dataItems[j];
+							this.dataItems[j]=this.dataItems[j+1];
+							this.dataItems[j+1]=temp;
+						}
+					}	
+				}
+				this.accend = false;
+				this.remvalue(this.accend);	
+			}
+		}
