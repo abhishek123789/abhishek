@@ -1,0 +1,186 @@
+https://bitwiseindia.sharepoint.com/sites/wiki/forum/SitePages/index.aspx
+
+function validateForm()
+{
+
+	var x =document.getElementById("fname").value;
+	if(x == "")
+	{
+		alert("Please enter your name");
+		return false;
+	}
+	
+	var x =document.getElementById('lname').value;
+	if(x == "")
+	{
+		alert("Please enter your last name");
+		return false;
+	}
+	
+	var x=document.getElementById('dob').value;
+	if(x=="")
+	{
+		alert("Please enter the date");
+		return false;
+	}
+	
+	var x=document.getElementById('email').value;
+	if(x=="")
+	{
+		alert("Please enter the email address");
+		return false;
+	}
+	
+	var x=document.getElementById('EQ').value;
+	if(x=="")
+	{
+		alert("Please enter the Educational Qualification");
+		return false;
+	}
+	return true;		
+}	
+ 
+function AddListItem()  
+{  
+		if(validateForm())
+		{
+		
+		 	var firstname = $("#fname").val();  
+		 	var lastname = $("#lname").val();  
+	        var dateofbirth = $("#dob").val();  
+	        var email = $("#email").val(); 
+	        var eduqua = $("#EQ").val(); 
+ 
+            $.ajax  
+           ({  
+        		url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/GetByTitle('emp')/items",  
+       			type: "POST",  
+        		data: JSON.stringify  
+        		({  
+           			 __metadata:  
+            		{  
+                		//type: getListItemType('emp') //SP.Data.EmpListItem
+                		 type: "SP.Data.EmpListItem"
+          	  		},  
+		            firstname:firstname ,
+		            lastname:lastname ,
+					dateofbirth: dateofbirth ,
+					email:email,		
+		            educationalqualification: eduqua    
+        		}),  
+       		 headers:  
+        		{  
+		            "Accept": "application/json;odata=verbose",  
+		            "Content-Type": "application/json;odata=verbose",  
+		            "X-RequestDigest": $("#__REQUESTDIGEST").val(),  
+		            "X-HTTP-Method": "POST"  
+        		},  
+        	
+	        success: function(data, status, xhr)  
+	        {  
+	        	
+	            alert('Item successfully added.');
+	            success();
+	            
+	        },  
+	        error: function(xhr, status, error)  
+	        {                          
+	            alert('Error: ' + data.responseJSON.error);
+	        }  
+    	});  
+    }
+  	  
+}
+
+function success()
+{
+	$("#fname").val('');
+ 	$("#lname").val('');
+ 	$("#dob").val('');
+ 	$("#email").val('');
+ 	$("#EQ").val('');
+}
+
+// Getting the item type for the list
+function getListItemType(name) {
+    return"SP.Data." + name[0].toUpperCase() + name.substring(1) + "ListItem";
+}
+
+//retrive
+
+function retriveListItem()  
+{  
+  
+  
+  	var ser = $("#search").val();
+    $.ajax  
+    ({  
+        url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/GetByTitle('emp')/items?$select=firstname,lastname,dateofbirth,email,educationalqualification",  
+        method:"GET", 
+        headers:  
+        {  
+            "Accept": "application/json;odata=verbose",  
+            "Content-Type": "application/json;odata=verbose",  
+            "X-RequestDigest": $("#__REQUESTDIGEST").val(),  
+            "IF-MATCH": "*",  
+            "X-HTTP-Method": null  
+        },  
+        cache: false,  
+        success: function(data)   
+        {  
+            $("#ResultDiv").empty();  
+            
+            var recordString="";
+            
+            recordString =recordString +  "<table border='1'>"+
+           	"<td>First Name</td>"+
+            "<td>Last Name</td>"+
+            "<td>Email</td>"+
+            "<td>Education Qualification</td>";
+            
+            
+			var stringRow="";
+			
+            for (var i = 0; i < data.d.results.length; i++)   
+            {  
+                var item = data.d.results[i];
+                if(ser==item.firstname||ser==item.lastname||ser==item.email)  
+                
+               stringRow = stringRow + "<tr><td>"+ item.firstname +
+               								"</td><td>"+ item.lastname +
+               								"</td><td>"+ item.email +
+               								"</td><td>"+ item.educationalqualification +
+               								"</td></tr>"; 
+            }         
+		             
+           $("#ResultDiv").append(recordString + stringRow + "</table>");  
+        },  
+        error: function(data)  
+        {  
+            $("#ResultDiv").empty().text(data.responseJSON.error);  
+        }  
+    });  
+}  
+ function cancel()
+ {
+ 	$("#fname").val('');
+ 	$("#lname").val('');
+ 	$("#dob").val('');
+ 	$("#email").val('');
+ 	$("#EQ").val('');
+}
+
+function clr()
+{
+	$("#search").val('');
+	$("#ResultDiv").empty();
+}
+ 
+
+
+
+
+ 
+ 
+ 
+ 
