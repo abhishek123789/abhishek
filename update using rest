@@ -1,0 +1,187 @@
+function updateListItem()  
+{  
+	var a=$("#empId").val(); 
+	alert(a);
+    var stat= $("#status").val();  
+    alert(stat);
+    $.ajax  
+    ({  
+        url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/GetByTitle('empdetails')/?$select=Eid,Status&$filter=Eid eq '"+a+"'",
+        type: "POST",  
+        data: JSON.stringify  
+        ({  
+            __metadata:  
+            {  
+                type: "SP.Data.EmpdetailsListItem"  
+            }, 
+            Eid:a, 
+            Status:stat
+         }),  
+        headers:  
+        {  
+            "Accept": "application/json;odata=verbose",  
+            "Content-Type": "application/json;odata=verbose",  
+            "X-RequestDigest": $("#__REQUESTDIGEST").val(),  
+            "IF-MATCH": "*",  
+            "X-HTTP-Method": "MERGE"  
+        },  
+        success: function(data, status, xhr)  
+        {  
+        	
+            alert("Successfully changed");  
+        },  
+        error: function(xhr, status, error)  
+        {  
+         // /  console.log(data.responseJSON.error);  
+        }  
+    });  
+ }
+
+
+
+
+if(ser==item.firstname||ser==item.lastname||ser==item.email)  
+                
+               stringRow = stringRow + "<tr><td>"+ item.firstname +
+               								"</td><td>"+ item.lastname +
+               								"</td><td>"+ item.email +
+               								"</td><td>"+ item.educationalqualification +
+               								"</td></tr>"; 
+
+
+
+
+url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/GetByTitle('empdetails')/?$select=Eid,Status&$filter=Eid eq '"+a+"'",
+
+
+
+
+/*
+function updateListItem()  
+{  
+	var a=$("#empId").val(); 
+	alert(a);
+    var stat= $("#status").val();  
+    alert(stat);
+    $.ajax  
+    ({  
+        url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/GetByTitle('empdetails')/?$select=Eid,Status&$filter=ID eq 27",
+        type: "PATCH",
+        data: JSON.stringify  
+        ({  
+            __metadata:  
+            {  
+                type: "SP.Data.EmpdetailsListItem"  
+            }, 
+            Eid:a, 
+            Status:stat
+         }),  
+        headers:  
+        {  
+            "Accept": "application/json;odata=verbose",  
+            "Content-Type": "application/json;odata=verbose",  
+            "X-RequestDigest": $("#__REQUESTDIGEST").val(),  
+            "X-Http-Method": "PATCH",
+            "If-Match":"*"
+        },  
+        success: function(data, status, xhr)  
+        {  
+        	
+            alert("Successfully changed");  
+        },  
+        error: function(xhr, status, error)  
+        {  
+         // /  console.log(data.responseJSON.error);  
+        }  
+    });  
+ }
+ 
+ */
+
+
+var itemProperties = {
+        "__metadata": { "type": 'SP.Data.EmpdetailsListItem' }, 
+        "Status": {"results": $("#status").val()}
+    };
+    
+    
+function updateListItem(itemProperties, success, failure) {
+
+    $.ajax({
+            url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/getbytitle('empdetails')/items?$select=ID,Status&$filter=ID eq 27",
+            type: "POST",
+            contentType: "application/json;odata=verbose",
+            data: JSON.stringify(itemProperties),
+            headers: {
+                "Accept": "application/json;odata=verbose",
+                "X-RequestDigest": $("#__REQUESTDIGEST").val(),
+                "X-HTTP-Method": "MERGE",
+                "If-Match": '*'
+            },
+            success: function (data) {
+                success();
+            },
+            error: function (data) {                
+                console.log(JSON.stringify(data));
+            }
+    });
+}
+
+
+
+
+
+
+
+
+
+//////
+function updateListItem() {
+
+    var call = jQuery.ajax({
+        url: _spPageContextInfo.webAbsoluteUrl + "/_api/Web/Lists/getByTitle('empdetails')/Items?$select=ID,Status&$filter=ID eq 27",
+        type: "GET",
+        dataType: "json",
+        headers: {
+            Accept: "application/json;odata=verbose"
+        }
+    });
+    call.done(function (data, textStatus, jqXHR) {
+        var items = data.d.results;
+        if (items.length > 0) {
+            var item = items[0];
+            
+            alert('in item');
+            updateItem(item);
+        }
+    });
+    call.fail(function (data, textStatus, jqXHR) {                
+                console.log(JSON.stringify(data));
+            });
+
+    function updateItem(item) {
+        var call = jQuery.ajax({
+            url: _spPageContextInfo.webAbsoluteUrl +
+                "/_api/Web/Lists/getByTitle('empdetails')/Items(" +
+                item.Id + ")",
+            type: "POST",
+            data: JSON.stringify({
+                "__metadata": { type: "SP.Data.EmpdetailsListItem" },
+                Status: $("#status").val()
+            }),
+            headers: {
+                Accept: "application/json;odata=verbose",
+                "Content-Type": "application/json;odata=verbose",
+                "X-RequestDigest": jQuery("#__REQUESTDIGEST").val(),
+                "IF-MATCH": item.__metadata.etag,
+                "X-Http-Method": "PATCH"
+            }
+        });
+        call.done(function (data, textStatus, jqXHR) {           
+            alert("Item updated");
+        });
+        call.fail(function (data, textStatus, jqXHR) {                
+                console.log(JSON.stringify(data));
+            });
+    }
+}
